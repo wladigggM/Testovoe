@@ -1,12 +1,47 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'ClientStatus/css/styles.css' %}">
 </head>
 <body>
+{% if user.is_authenticated %}
+<a href="{% url 'index' %}"><h1>Hello, {{user.username}} !</h1></a>
+{% else %}
 <h1>Hello World !</h1>
-{% block content %}
-{% endblock %}
+{% endif %}
+<header>
+
+    <div class="example">
+        <h2>1. Форма для авторизации по паре логин/пароль</h2>
+        <a href="{% url 'login' %}">sign in</a>
+    </div>
+    <div class="example">
+        <h2>2. Показать таблицу клиентов авторизованного
+            пользователя по связи ФИО из таблицы пользователей – ФИО
+            ответственного
+        </h2>
+        <a href="{% url 'clients-table' %}">ТАБЛИЦА КЛИЕНТОВ</a>
+    </div>
+    <div class="example">
+        <h2>3. Пользователь должен иметь возможность изменить статус
+            клиента на «В работе», «Отказ», «Сделка закрыта»</h2>
+        <a href="{% url 'synthesizer' %}">Синтезировать 5 пользователей и привязать к каждому(в том числе уже
+            существующему) по одному
+            синтезированному клиенту</a>
+    </div>
+</header>
+
+<div>
+</div>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<footer>
+    <h2>Инфо о нас</h2>
+</footer>
 </body>
 </html>
